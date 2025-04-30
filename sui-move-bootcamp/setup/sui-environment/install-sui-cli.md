@@ -220,6 +220,20 @@ To install it on Windows, you run powershell as an administator and use the foll
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 ```
+To read more about Chocolatey, check out the [official documentation](https://docs.chocolatey.org/en-us/choco/setup/).
+
+After installing Chocolatey, you can use the following command to install Sui:
+```powershell
+choco install sui   
+```
+After that to check whether sui is installed correctly, open a new terminal and run the following command:
+```bash
+sui --version
+``` 
+
+If you did it correctly you should see a similar output displaying the version of Sui you installed.
+![Expected output](sui-move-bootcamp\assets\screenshots\sui-verison-output-screenshot.png)
+
 
 ## Virtual-environments-setup
 Here we will explain just how to setup the virtual instances. After that you can just refer to [this](#linux-setup) to install the prerequisites and [this](#installing-sui-binaries) to install the binaries since these virtual instances run on linux so it will just be like working with a linux machine.
