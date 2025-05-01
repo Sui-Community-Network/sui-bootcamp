@@ -232,7 +232,7 @@ sui --version
 ``` 
 
 If you did it correctly you should see a similar output displaying the version of Sui you installed.
-![Expected output](..\assets\screenshots\sui-version-output-screenshot.png)
+![Expected output](\assets\screenshots\sui-version-output-screenshot.png)
 
 
 ## Virtual-environments-setup
