@@ -232,7 +232,10 @@ sui --version
 ``` 
 
 If you did it correctly you should see a similar output displaying the version of Sui you installed.
+<<<<<<< HEAD
 ![Expected output](/sui-move-bootcamp/assets/screenshots/sui-version-output-screenshot.png)
+=======
+>>>>>>> 9a02065f524bb8f8052ca2fe9fe7a0ac7bd5cf92
 
 
 ## Virtual-environments-setup
