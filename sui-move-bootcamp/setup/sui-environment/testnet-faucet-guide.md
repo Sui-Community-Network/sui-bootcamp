@@ -12,7 +12,7 @@ If you're developing on the Sui blockchain, you’ll need test tokens to deploy 
 
 The Sui Foundation provides an official web faucet for both Testnet and Devnet. To switch you just switch to your preferred network using the dropdown menu in the top right corner of the page.
 
-![sui-faucet-toggle](/sui-move-bootcamp/assets/screenshots/sui-faucet-toggle.png)
+![sui-faucet-toggle](/sui-move-bootcamp/assets/screenshots/sui-faucet-network-toggle.png)
 
 ### Links:
 - **Testnet**: [https://faucet.sui.io/?network=testnet&address=0xd8133d487f2bd59baf4906ba1b76e29504dd8ab7900a2b1ff4d489eab88d59b1](https://faucet.testnet.sui.io/gas)
@@ -70,4 +70,4 @@ curl --location --request POST 'https://faucet.testnet.sui.io/v1/gas' \
 ```
 
 The output should look like this:
-[Expected Output](/sui-move-bootcamp/assets/screenshots/curl-tokens-output.png)
+![Expected Output](/sui-move-bootcamp/assets/screenshots/curl-tokens-output.png)
