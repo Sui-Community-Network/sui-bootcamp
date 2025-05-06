@@ -216,7 +216,7 @@ Download and install [CMake](https://cmake.org/download/) from the CMake website
 ### Chocolatey Method
 Chocolatey is a package manager for Windows that makes it easy to install and update software. It's a great option for beginners who want a quick and easy way to install Sui.
 
-To install it on Windows, you run powershell as an administator and use the following command:
+To install Chocolatey on Windows, you run powershell as an administator and use the following command:
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 ```
@@ -234,19 +234,71 @@ sui --version
 If you did it correctly you should see a similar output displaying the version of Sui you installed.
 <<<<<<< HEAD
 ![Expected output](/sui-move-bootcamp/assets/screenshots/sui-version-output-screenshot.png)
-=======
->>>>>>> 9a02065f524bb8f8052ca2fe9fe7a0ac7bd5cf92
 
+-----
 
 ## Virtual-environments-setup
-Here we will explain just how to setup the virtual instances. After that you can just refer to [this](#linux-setup) to install the prerequisites and [this](#installing-sui-binaries) to install the binaries since these virtual instances run on linux so it will just be like working with a linux machine.
+Here we will explain just how to setup the virtual instances. We will explain on how to setup Github codespaces but the process is virtually the same even for gitpod. After that you can just refer to [this](#linux-setup) to install the prerequisites and [this](#installing-sui-binaries) to install the binaries since these virtual instances run on linux so it will just be like working with a linux machine.
 
 ### GitHub Codespaces
+
+To get started with GitHub Codespaces, you need to have a GitHub account. If you don't have one, you can create one for free.
+
+#### Step 1: Create a New GitHub Repository
+
+1. Go to [github.com](https://github.com) and log in.
+2. Click the **"+" icon** (top-right corner) → **"New repository"**.
+3. Fill in:
+   - **Repository name** (e.g., `sui-bootcamp`)
+   - **Description** (optional)
+   - Choose **Public** or **Private**
+4. Check: ✅ *Add a README file* - this is very important since for us to initialize a codespace on this repository we will need it to have a file inside 
+5. Click **"Create repository"**
+
+
+#### Step 2: Open the Repository in a Codespace
+
+1. On your repository page, click the green **`<> Code`** button.
+2. Click the **Codespaces** tab.
+3. Click **"Create codespace on main"** (or whatever branch you're using).
+
+> ⏳ GitHub will now set up your development environment — including VS Code in the browser.
+
+####  Step 3: Explore Your Codespace
+
+Once it loads:
+- You’ll see a **VS Code-like interface** in your browser.
+- The repo’s files are on the left.
+- The terminal is already set up at the bottom.
+
+#### Step 4: Install Project Dependencies 
+Now this will be like you have a linux computer so you can just head to the [linux setup](#linux-setup) and follow the instructions there to install the prerequisites and then proceed to the [installing the binaries](#installing-sui-binaries) section to install the binaries.
+
+
+#### Step 5: Run and Test Your Code
+
+- You can write Move smart contracts, Rust code, or frontend apps directly in your Codespace.
+- Use the terminal to run commands like:
+  ```bash
+  sui move test
+  cargo build
+  npm install
+
 
 
 ## INSTALLING SUI BINARIES
 
-### Linux and macOS
+At this point, you should have installed the prerequisites required depending on the OS that your device uses. We’re ready to proceed with installing Sui on our device!
+
+Run the following command in your terminal to install Sui binaries from the devnet branch:
+```bash 
+cargo install --locked --git https://github.com/MystenLabs/sui.git --branch devnet sui --features tracing
+```
+The `tracing` feature is important as it adds Move test coverage and debugger support in the Sui CLI. Unless it is enabled you will not be able to use these two features.
+
+**NOTE** If you used the manual method or the the Chocolatey method on Windows, you can skip this step, for you everything is already installed.
+
+
 
  
 
