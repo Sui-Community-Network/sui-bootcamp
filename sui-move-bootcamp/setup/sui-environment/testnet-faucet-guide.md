@@ -49,7 +49,7 @@ Use the following cURL command to request tokens directly from the faucet server
 In this case we'll be requesting devnet tokens.
 
 ```bash
-curl --location --request POST 'https://faucet.devnet.sui.io/v1/gas' \
+curl --location --request POST 'https://faucet.devnet.sui.io/v2/gas' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "FixedAmountRequest": {
@@ -60,7 +60,7 @@ curl --location --request POST 'https://faucet.devnet.sui.io/v1/gas' \
 for testnet you just proceed to replace `devnet` with `testnet` in the url to look like this;
 
 ```bash
-curl --location --request POST 'https://faucet.testnet.sui.io/v1/gas' \
+curl --location --request POST 'https://faucet.testnet.sui.io/v2/gas' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "FixedAmountRequest": {
