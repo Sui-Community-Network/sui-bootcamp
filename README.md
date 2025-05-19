@@ -40,7 +40,7 @@ This bootcamp runs for **15 sessions (nights)** — each 2 hours long — broken
 
 #### sui-environment
 
-[`sui-cli`](./sui-move-bootcamp/setup/install-sui-cli.md)
+[`sui-cli`](../sui-move-bootcamp/setup/install-sui-cli.md)
 [`sui-wallet`](/sui-move-bootcamp/setup/install-sui-wallet.md)
 
 #### front-end tools setup
