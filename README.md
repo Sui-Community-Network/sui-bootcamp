@@ -40,25 +40,25 @@ This bootcamp runs for **15 sessions (nights)** — each 2 hours long — broken
 
 #### sui-environment
 
-[`sui-cli`](sui-move-bootcamp\setup\sui-environment\install-sui-cli.md)
-[`sui-wallet`](sui-move-bootcamp\setup\sui-environment\setup-sui-wallet.md)
+[`sui-cli`](/sui-move-bootcamp/setup/sui-environment/install-sui-cli.md)
+[`sui-wallet`](/sui-move-bootcamp/setup/sui-environment/setup-sui-wallet.md)
 
 #### front-end tools setup
-[`node.js installation`](sui-move-bootcamp\setup\frontend-setup\install-node-js.md)
-[`sui-js-sdk`](sui-move-bootcamp\setup\frontend-setup\install-sui-js-sdk.md)
-[`Typescript-installation`](sui-move-bootcamp\setup\frontend-setup\install-sui-move.md)
+[`node.js installation`](/sui-move-bootcamp/setup/frontend-setup/install-node-js.md)
+[`sui-js-sdk`](/sui-move-bootcamp/setup/frontend-setup/install-sui-js-sdk.md)
+[`Typescript-installation`](/sui-move-bootcamp/setup/frontend-setup/install-sui-move.md)
 
 ### Acquiring testnet tokens 
 👉 Start here:
-[`testnet-faucet-guide`](sui-move-bootcamp\setup\sui-environment\testnet-faucet-guide.md)
+[`testnet-faucet-guide`](/sui-move-bootcamp/setup/sui-environment/testnet-faucet-guide.md)
 
 ---
 ### 🗓 Follow nightly lessons objectives 
-👉 Browse: [`Syllabus`](sui-move-bootcamp/syllabus/full-syllabus.md)
-[`Night 1`](sui-move-bootcamp/syllabus/nightly-objectives/night-o1.md)
-[`Night 2`](sui-move-bootcamp/syllabus/nightly-objectives/night-o2.md)
-[`Night 3`](sui-move-bootcamp/syllabus/nightly-objectives/night-o3.md)
-[`Night 4`](sui-move-bootcamp/syllabus/nightly-objectives/night-o4.md)
+👉 Browse: [`Syllabus`](/sui-move-bootcamp/syllabus/full-syllabus.md)
+[`Night 1`](/sui-move-bootcamp/syllabus/nightly-objectives/night-o1.md)
+[`Night 2`](/sui-move-bootcamp/syllabus/nightly-objectives/night-o2.md)
+[`Night 3`](/sui-move-bootcamp/syllabus/nightly-objectives/night-o3.md)
+[`Night 4`](/sui-move-bootcamp/syllabus/nightly-objectives/night-o4.md)
 [`Night 5`](sui-move-bootcamp/syllabus/nightly-objectives/night-o5.md)
 [`Night 6`](sui-move-bootcamp/syllabus/nightly-objectives/night-o6.md)
 [`Night 7`](sui-move-bootcamp/syllabus/nightly-objectives/night-o7.md)
