@@ -4,4 +4,4 @@
 - Review scaling patterns and limitations
 - Present projects and receive feedback
 
-**Final Activity:** Hackathon — Build and deploy your own dApp!
+**Final Activity:** Build and deploy your own dApp!

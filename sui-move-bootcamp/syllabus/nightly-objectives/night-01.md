@@ -1,6 +1,6 @@
 ### **Night 1: Introduction to Sui & Move**
 **Learning Objectives:**
-- Understand bockchain basics
+- Understand blockchain basics
 - Understand what Sui is and how it differs from other blockchains
 - Understand what Move is and its origins
 - Explore use cases of Sui
