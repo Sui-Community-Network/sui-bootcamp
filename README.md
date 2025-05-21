@@ -1,3 +1,5 @@
+![Sui Kenya Logo](/sui-move-bootcamp/assets/logos/Sui-kenya-header.png)
+
 # 🚀 15 Nights of Sui Move Bootcamp
 
 Welcome to the official repository for the **15 Nights of Sui Move Bootcamp** — a beginner-friendly, hands-on program to help you learn Move smart contract development on the Sui blockchain and build a real full-stack dApp.
