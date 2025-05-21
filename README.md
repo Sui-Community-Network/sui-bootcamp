@@ -55,15 +55,15 @@ This bootcamp runs for **15 sessions (nights)** — each 2 hours long — broken
 ---
 ### 🗓 Follow nightly lessons objectives 
 👉 Browse: [`Syllabus`](/sui-move-bootcamp/syllabus/full-syllabus.md)
-[`Night 1`](/sui-move-bootcamp/syllabus/nightly-objectives/night-o1.md)
-[`Night 2`](/sui-move-bootcamp/syllabus/nightly-objectives/night-o2.md)
-[`Night 3`](/sui-move-bootcamp/syllabus/nightly-objectives/night-o3.md)
-[`Night 4`](/sui-move-bootcamp/syllabus/nightly-objectives/night-o4.md)
-[`Night 5`](/sui-move-bootcamp/syllabus/nightly-objectives/night-o5.md)
-[`Night 6`](/sui-move-bootcamp/syllabus/nightly-objectives/night-o6.md)
-[`Night 7`](/sui-move-bootcamp/syllabus/nightly-objectives/night-o7.md)
-[`Night 8`](/sui-move-bootcamp/syllabus/nightly-objectives/night-o8.md)
-[`Night 9`](/sui-move-bootcamp/syllabus/nightly-objectives/night-o9.md)
+[`Night 1`](/sui-move-bootcamp/syllabus/nightly-objectives/night-01.md)
+[`Night 2`](/sui-move-bootcamp/syllabus/nightly-objectives/night-02.md)
+[`Night 3`](/sui-move-bootcamp/syllabus/nightly-objectives/night-03.md)
+[`Night 4`](/sui-move-bootcamp/syllabus/nightly-objectives/night-04.md)
+[`Night 5`](/sui-move-bootcamp/syllabus/nightly-objectives/night-05.md)
+[`Night 6`](/sui-move-bootcamp/syllabus/nightly-objectives/night-06.md)
+[`Night 7`](/sui-move-bootcamp/syllabus/nightly-objectives/night-07.md)
+[`Night 8`](/sui-move-bootcamp/syllabus/nightly-objectives/night-08.md)
+[`Night 9`](/sui-move-bootcamp/syllabus/nightly-objectives/night-09.md)
 [`Night 10`](/sui-move-bootcamp/syllabus/nightly-objectives/night-10.md)
 [`Night 11`](/sui-move-bootcamp/syllabus/nightly-objectives/night-11.md)
 [`Night 12`](/sui-move-bootcamp/syllabus/nightly-objectives/night-12.md)
@@ -94,9 +94,9 @@ We welcome contributions and suggestions!
 
 ## 📬 Need Help?
 
-- 🐞 Found a bug or confusion? [Open an issue](https://github.com/YOUR_ORG/YOUR_REPO/issues)  
-- ⚙️ Setup issue? Read the [`troubleshooting.md`](./setup/troubleshooting.md)  
-- 💬 Still stuck? Ask in the bootcamp’s **Discord support channel**
+- Found a bug or confusion? [Open an issue](https://github.com/YOUR_ORG/YOUR_REPO/issues)  
+- Setup issue? Read the [`troubleshooting.md`](./setup/troubleshooting.md)  
+- Still stuck? Ask in the bootcamp’s [**Whatsapp Community**]()
 
 ---
 
@@ -107,7 +107,7 @@ This content is released under the [MIT License](/sui-move-bootcamp/LICENSE)
 ---
 
 **Happy Building! 🧱**  
-— _The Sui Move Bootcamp Team_
+— _The Sui-Kenya Bootcamp Team_
 
 
 
