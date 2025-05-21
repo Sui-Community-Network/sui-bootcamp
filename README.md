@@ -39,18 +39,27 @@ This bootcamp runs for **15 sessions (nights)** — each 2 hours long — broken
 👉 Start here: 
 
 #### sui-environment
-
 [`sui-cli`](/sui-move-bootcamp/setup/sui-environment/install-sui-cli.md)
+
 [`sui-wallet`](/sui-move-bootcamp/setup/sui-environment/setup-sui-wallet.md)
 
 #### front-end tools setup
 [`node.js installation`](/sui-move-bootcamp/setup/frontend-setup/install-node-js.md)
-[`sui-js-sdk`](/sui-move-bootcamp/setup/frontend-setup/install-sui-js-sdk.md)
+
 [`Typescript-installation`](/sui-move-bootcamp/setup/frontend-setup/install-sui-move.md)
 
 ### Acquiring testnet tokens 
-👉 Start here:
 [`testnet-faucet-guide`](/sui-move-bootcamp/setup/sui-environment/testnet-faucet-guide.md)
+
+### Checklist
+- ✅Sui CLI
+- ✅Sui Wallet
+- ✅Node.js
+- ✅TypeScript
+- ✅VS Code
+- ✅Sui Move Support(Move VS Code extension)
+- ✅Testnet tokens
+
 
 ---
 ### 🗓 Follow nightly lessons objectives 
