@@ -86,10 +86,6 @@ This bootcamp runs for **15 sessions (nights)** — each 2 hours long — broken
 ### 💻 Work through hands-on examples  
 👉 Explore: [`examples/`](/sui-move-bootcamp/examples)
 
----
-
-### 🚀 Complete assignments and final dApp  
-👉 See: [`mini-projects/`](/sui-move-bootcamp/mini-projects)
 
 ---
 ## 🤝 Contributing
@@ -103,9 +99,10 @@ We welcome contributions and suggestions!
 
 ## 📬 Need Help?
 
-- Found a bug or confusion? [Open an issue](https://github.com/YOUR_ORG/YOUR_REPO/issues)  
+- Found a bug or confusion? [Open an issue](/sui-move-bootcamp/.github/ISSUE_TEMPLATE/)  
 - Setup issue? Read the [`troubleshooting.md`](./setup/troubleshooting.md)  
-- Still stuck? Ask in the bootcamp’s [**Whatsapp Community**]()
+- Still stuck? Ask in the bootcamp’s - [**Whatsapp Community**]()
+                                     - [**Telegram Community**](https://t.me/SuiCommunityKe)   
 
 ---
 
