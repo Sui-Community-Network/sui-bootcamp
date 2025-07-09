@@ -42,7 +42,7 @@ module marketplace::marketplace {
     }
 
     // Create a new Marketplace shared object for a specific Coin type.
-    public entry fun create<COIN>(ctx: &mut TxContext): Marketplace<COIN> {
+    puentry fun create<COIN>(ctx: &mut TxContext): Marketplace<COIN> {
         // Create a new UID for the Marketplace.
         let id = object::new(ctx);
         // Create an empty Bag for listings.

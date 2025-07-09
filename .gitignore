@@ -1,0 +1,5 @@
+# Ignore node_modules for frontend
+/sui-move-bootcamp/examples/phase-3-dapps/react-e2e-counter/src/counter-frontend/node_modules/
+
+# Ignore build artifacts
+/sui-move-bootcamp/examples/phase-3-dapps/react-e2e-counter/move/counter/build/*
