@@ -113,7 +113,7 @@ This content is released under the [MIT License](/sui-move-bootcamp/LICENSE)
 ---
 
 **Happy Building! 🧱**  
-— _The Sui-Kenya Bootcamp Team_
+— _The Sui-Kenya Team_
 
 
 
