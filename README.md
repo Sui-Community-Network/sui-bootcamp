@@ -66,6 +66,7 @@ This bootcamp runs for **15 sessions (nights)** — each 2 hours long — broken
 ### Undestand Move syntax
 👉 Head here:  [`Move Syntax`](./sui-move-bootcamp/examples/SUI-MOVE-SYNTAX)
 
+
 ---
 ### 🗓 Follow nightly lessons objectives 
 👉 Browse: [`Syllabus`](/sui-move-bootcamp/syllabus/full-syllabus.md)
