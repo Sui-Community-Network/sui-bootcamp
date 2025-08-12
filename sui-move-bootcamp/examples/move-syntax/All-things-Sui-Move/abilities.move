@@ -9,6 +9,7 @@ module All-things-Sui_Move::abilities {
     // Useful for: Configuration data, constants, simple values that need duplication
     
     /// Simple configuration struct that can be copied
+
     struct GameConfig has copy, drop {
         max_players: u64,
         game_duration: u64,

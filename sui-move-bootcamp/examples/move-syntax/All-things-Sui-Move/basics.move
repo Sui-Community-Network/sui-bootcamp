@@ -14,11 +14,11 @@ module All-things-Sui_Move::basics {
     // =========================
     // VARIABLES AND MUTABILITY
     // =========================
-    
+
     /// Demonstrates variable declaration and mutability
     public fun variable_basics() {
         // IMMUTABLE VARIABLES (default behavior)
-        let x: u8 = 10;              // Cannot be changed after declaration
+        let x: u256 = 10;              // Cannot be changed after declaration
         let name = b"Alice";         // Type inference - compiler knows it's vector<u8>
         
         // MUTABLE VARIABLES (use 'mut' keyword)
@@ -32,7 +32,7 @@ module All-things-Sui_Move::basics {
         // SHADOWING - Creating new variable with same name
         let x = 100u64;              // This is a new variable, different type
         let x = x + 50;              // Another new variable, x = 150
-        
+        let y = x
         // Variables must be used or prefixed with underscore
         let _unused = 42;            // Won't cause compiler warning
     }
