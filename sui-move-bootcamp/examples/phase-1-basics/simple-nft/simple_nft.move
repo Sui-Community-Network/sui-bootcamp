@@ -4,6 +4,7 @@ module simple_nft::simple_nft {
     use sui::url::{Url, new_unsafe_from_bytes};
     use sui::object;
     use sui::tx_context::TxContext;
+    use sui::transfer;
 
     // Define the NFT struct. It will be stored on-chain.
     public struct SimpleNFT has key, store {
@@ -23,7 +24,7 @@ module simple_nft::simple_nft {
             id: object::new(ctx),                       // Generate a new unique ID for the NFT.
             name: string::utf8(name),                   // Convert the name bytes to a String.
             image_url: new_unsafe_from_bytes(image_url) // Convert the image link bytes to a Url.
-        }
+        };
         transfer::public_transfer(nft, recipient); // Transfer the NFT to the recipient.
 }
 
