@@ -15,15 +15,18 @@ module simple_nft::simple_nft {
     // Function to mint a new NFT.
     public fun mint(
         name: vector<u8>,           // Name as bytes (utf8).
-        image_url: vector<u8>,      // Image link as bytes (utf8).
+        image_url: vector<u8>,
+        recipient: address,      // Image link as bytes (utf8).
         ctx: &mut TxContext         // Transaction context.
-    ): SimpleNFT {
-        SimpleNFT {
+    ){
+        let nft = SimpleNFT {
             id: object::new(ctx),                       // Generate a new unique ID for the NFT.
             name: string::utf8(name),                   // Convert the name bytes to a String.
             image_url: new_unsafe_from_bytes(image_url) // Convert the image link bytes to a Url.
         }
-    }
+        transfer::public_transfer(nft, recipient); // Transfer the NFT to the recipient.
+}
+
 
     // Function to get the name of the NFT.
     public fun get_name(nft: &SimpleNFT): &string::String {
