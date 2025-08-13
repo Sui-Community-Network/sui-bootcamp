@@ -5,21 +5,23 @@ module examples::my_coin {
     use sui::tx_context::TxContext;
     // Import transfer module for transferring objects.
     use sui::transfer;
+    use std::option;
+    use sui::url;
 
     // Define a new struct called SUI_KENYA to represent our token type.
-    public struct SUI_KENYA has drop {}
+    public struct MY_COIN has drop {}
 
     // The init function is called once when the module is published.
     // It creates the new coin type and sets up its metadata.
-    public fun init(witness: SUI_KENYA, ctx: &mut TxContext) {
+    public fun init(otw: MY_COIN, ctx: &mut TxContext) {
         // Create the coin, set decimals to 6, symbol to "SUI_KENYA", and leave other metadata empty.
         let (treasury, metadata) = coin::create_currency(
-            witness,         // The one-time witness for this coin type.
+            otw,         // The one-time witness for this coin type.
             6,               // Number of decimals for the token.
             b"SUI_KENYA",    // Symbol for the token.
             b"",             // Name (left empty here, you can fill in).
             b"",             // Description (left empty here).
-            option::none(),  // Icon URL (optional, left empty).
+            option::some(sui::url::new_unsafe_from_bytes(b"")),,  // Icon URL (optional, left empty).
             ctx              // Transaction context.
         );
         // Make the metadata object immutable.
@@ -30,7 +32,7 @@ module examples::my_coin {
 
     // Mint function: allows the treasury holder to mint new tokens to a recipient.
     public fun mint(
-        treasury_cap: &mut TreasuryCap<SUI_KENYA>, // The authority to mint tokens.
+        treasury_cap: &mut TreasuryCap<MY_COIN>, // The authority to mint tokens.
         amount: u64,                               // Amount of tokens to mint.
         recipient: address,                        // Address to receive the tokens.
         ctx: &mut TxContext                        // Transaction context.
