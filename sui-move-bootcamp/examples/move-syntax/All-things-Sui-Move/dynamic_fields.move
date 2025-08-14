@@ -1,328 +1,410 @@
 // =========================================
-// SUI MOVE DYNAMIC FIELDS - COMPLETE GUIDE
+// SUI MOVE DYNAMIC FIELDS - STEP BY STEP TUTORIAL
 // =========================================
 
-module example::dynamic_fields_demo {
+module game::character_system {
     use sui::object::{Self, UID};
     use sui::dynamic_field as df;
     use sui::dynamic_object_field as dof;
     use sui::tx_context::{Self, TxContext};
+    use sui::transfer;
     use std::string::String;
 
     // =========================================
-    // WHAT ARE DYNAMIC FIELDS?
+    // STEP 1: WHAT IS A DYNAMIC FIELD?
     // =========================================
     /*
-    Dynamic fields allow you to add arbitrary key-value pairs to any object
-    with a UID at runtime. Think of them as a HashMap attached to an object.
-    
-    Key benefits:
-    - Add fields without modifying the original struct
-    - Store heterogeneous data types
-    - Efficient storage (only pay for what you use)
-    - Can be queried and iterated over
+    🎯 IMAGINE: You have a game character, but you don't know in advance 
+    what stats, skills, or items they'll have. Dynamic fields let you 
+    add ANY data to objects at runtime!
+
+    It's like having a magic backpack that can hold anything:
+    - Numbers (health, mana, level)
+    - Text (skills, achievements)
+    - Other objects (weapons, armor)
     */
 
-    // =========================================
-    // BASIC STRUCT WITH UID
-    // =========================================
-    struct Container has key {
-        id: UID,
-        name: String,
+    // Start with a simple game character
+    struct GameCharacter has key {
+        id: UID,           // Required for dynamic fields
+        name: String,      // Fixed data we know upfront
     }
 
-    // Objects that can be stored as dynamic object fields
-    struct Item has key, store {
-        id: UID,
-        value: u64,
-        description: String,
-    }
-
-    // =========================================
-    // DYNAMIC FIELD TYPES
-    // =========================================
-    /*
-    1. dynamic_field: Stores values directly (copy/drop types)
-    2. dynamic_object_field: Stores objects with key+store abilities
-    */
-
-    // =========================================
-    // CREATING A CONTAINER
-    // =========================================
-    public fun create_container(name: String, ctx: &mut TxContext): Container {
-        Container {
+    // Create a basic character
+    public fun create_character(name: String, ctx: &mut TxContext) {
+        let character = GameCharacter {
             id: object::new(ctx),
             name,
-        }
+        };
+        transfer::transfer(character, tx_context::sender(ctx));
     }
 
     // =========================================
-    // ADDING DYNAMIC FIELDS
-    // =========================================
-    
-    // Add a simple value (u64, bool, String, etc.)
-    public fun add_number_field(
-        container: &mut Container, 
-        key: String, 
-        value: u64
-    ) {
-        df::add(&mut container.id, key, value);
-    }
-
-    // Add a vector of values
-    public fun add_vector_field(
-        container: &mut Container,
-        key: String,
-        values: vector<u64>
-    ) {
-        df::add(&mut container.id, key, values);
-    }
-
-    // Add a custom struct (must have copy + drop + store)
-    struct Metadata has copy, drop, store {
-        created_at: u64,
-        tags: vector<String>,
-    }
-
-    public fun add_metadata_field(
-        container: &mut Container,
-        key: String,
-        metadata: Metadata
-    ) {
-        df::add(&mut container.id, key, metadata);
-    }
-
-    // =========================================
-    // ADDING DYNAMIC OBJECT FIELDS
-    // =========================================
-    
-    public fun create_item(
-        value: u64, 
-        description: String, 
-        ctx: &mut TxContext
-    ): Item {
-        Item {
-            id: object::new(ctx),
-            value,
-            description,
-        }
-    }
-
-    // Add an object as a dynamic field
-    public fun add_item_to_container(
-        container: &mut Container,
-        key: String,
-        item: Item
-    ) {
-        dof::add(&mut container.id, key, item);
-    }
-
-    // =========================================
-    // READING DYNAMIC FIELDS
-    // =========================================
-
-    // Check if a field exists
-    public fun has_field(container: &Container, key: String): bool {
-        df::exists_(&container.id, key)
-    }
-
-    // Read a value field (immutable reference)
-    public fun get_number_field(container: &Container, key: String): &u64 {
-        df::borrow(&container.id, key)
-    }
-
-    // Read a mutable reference to a field
-    public fun get_number_field_mut(container: &mut Container, key: String): &mut u64 {
-        df::borrow_mut(&mut container.id, key)
-    }
-
-    // Read an object field
-    public fun get_item(container: &Container, key: String): &Item {
-        dof::borrow(&container.id, key)
-    }
-
-    // Read a mutable object field
-    public fun get_item_mut(container: &mut Container, key: String): &mut Item {
-        dof::borrow_mut(&mut container.id, key)
-    }
-
-    // =========================================
-    // UPDATING DYNAMIC FIELDS
-    // =========================================
-
-    // Update a value field directly
-    public fun update_number_field(
-        container: &mut Container,
-        key: String,
-        new_value: u64
-    ) {
-        let field_ref = df::borrow_mut(&mut container.id, key);
-        *field_ref = new_value;
-    }
-
-    // Update an object field
-    public fun update_item_value(
-        container: &mut Container,
-        key: String,
-        new_value: u64
-    ) {
-        let item = dof::borrow_mut(&mut container.id, key);
-        item.value = new_value;
-    }
-
-    // =========================================
-    // REMOVING DYNAMIC FIELDS
-    // =========================================
-
-    // Remove and return a value field
-    public fun remove_number_field(
-        container: &mut Container,
-        key: String
-    ): u64 {
-        df::remove(&mut container.id, key)
-    }
-
-    // Remove and return an object field
-    public fun remove_item(
-        container: &mut Container,
-        key: String
-    ): Item {
-        dof::remove(&mut container.id, key)
-    }
-
-    // =========================================
-    // COMPLEX EXAMPLE: USER PROFILE
-    // =========================================
-
-    struct UserProfile has key {
-        id: UID,
-        username: String,
-    }
-
-    struct Achievement has copy, drop, store {
-        title: String,
-        points: u64,
-        unlocked_at: u64,
-    }
-
-    struct NFT has key, store {
-        id: UID,
-        name: String,
-        rarity: u8,
-    }
-
-    public fun create_user_profile(username: String, ctx: &mut TxContext): UserProfile {
-        UserProfile {
-            id: object::new(ctx),
-            username,
-        }
-    }
-
-    // Add various types of data to user profile
-    public fun setup_user_profile(
-        profile: &mut UserProfile,
-        level: u64,
-        achievements: vector<Achievement>,
-        nft: NFT,
-        settings: vector<String>
-    ) {
-        // Add simple fields
-        df::add(&mut profile.id, b"level".to_string(), level);
-        df::add(&mut profile.id, b"settings".to_string(), settings);
-        
-        // Add complex struct
-        df::add(&mut profile.id, b"achievements".to_string(), achievements);
-        
-        // Add object field
-        dof::add(&mut profile.id, b"featured_nft".to_string(), nft);
-    }
-
-    // =========================================
-    // PRACTICAL PATTERNS
-    // =========================================
-
-    // Pattern 1: Conditional field access with default values
-    public fun get_level_or_default(profile: &UserProfile): u64 {
-        if (df::exists_(&profile.id, b"level".to_string())) {
-            *df::borrow(&profile.id, b"level".to_string())
-        } else {
-            1 // default level
-        }
-    }
-
-    // Pattern 2: Batch operations
-    public fun add_multiple_stats(
-        profile: &mut UserProfile,
-        health: u64,
-        mana: u64,
-        experience: u64
-    ) {
-        df::add(&mut profile.id, b"health".to_string(), health);
-        df::add(&mut profile.id, b"mana".to_string(), mana);
-        df::add(&mut profile.id, b"experience".to_string(), experience);
-    }
-
-    // Pattern 3: Field migration/upgrade
-    public fun upgrade_user_stats(profile: &mut UserProfile) {
-        // Check if old format exists
-        if (df::exists_(&profile.id, b"old_stats".to_string())) {
-            // Remove old format
-            let _old_stats: u64 = df::remove(&mut profile.id, b"old_stats".to_string());
-            
-            // Add new format
-            df::add(&mut profile.id, b"detailed_stats".to_string(), vector[100u64, 50u64, 200u64]);
-        }
-    }
-
-    // =========================================
-    // KEY CONSIDERATIONS & BEST PRACTICES
+    // STEP 2: ADDING YOUR FIRST DYNAMIC FIELD
     // =========================================
     /*
-    1. KEY TYPES:
-       - Keys can be any type with copy + drop + store
-       - Common: String, u64, address, vector<u8>
-       - Use consistent key naming conventions
-
-    2. GAS CONSIDERATIONS:
-       - Adding fields costs gas proportional to key+value size
-       - Reading is cheap, writing is more expensive
-       - Removing fields refunds some gas
-
-    3. STORAGE PATTERNS:
-       - Use dynamic_field for simple values
-       - Use dynamic_object_field for objects you want to transfer separately
-       - Consider data locality - frequently accessed fields should be in main struct
-
-    4. SECURITY:
-       - Dynamic fields are publicly readable if the parent object is shared
-       - Use capability patterns for access control
-       - Validate keys before operations
-
-    5. QUERYING:
-       - Fields can be discovered via RPC calls
-       - Plan your key structure for efficient querying
-       - Consider using prefixes for categorization (e.g., "stat_", "config_")
+    🔧 THE BASIC OPERATION: df::add(object_id, key, value)
+    
+    Think of it like: character["health"] = 100
     */
 
-    // =========================================
-    // ERROR HANDLING EXAMPLE
-    // =========================================
+    // Add a single stat to our character
+    public fun add_health(character: &mut GameCharacter, health_points: u64) {
+        // The magic happens here! Add health as a dynamic field
+        df::add(&mut character.id, b"health".to_string(), health_points);
+        //      ^object          ^key              ^value
+    }
 
-    // Safe field access with proper error handling
-    public fun safe_get_field(container: &Container, key: String): Option<u64> {
-        if (df::exists_(&container.id, key)) {
-            option::some(*df::borrow(&container.id, key))
+    // Add more stats one by one
+    public fun add_strength(character: &mut GameCharacter, strength: u64) {
+        df::add(&mut character.id, b"strength".to_string(), strength);
+    }
+
+    public fun add_mana(character: &mut GameCharacter, mana: u64) {
+        df::add(&mut character.id, b"mana".to_string(), mana);
+    }
+
+    // =========================================
+    // STEP 3: READING DYNAMIC FIELDS
+    // =========================================
+    /*
+    🔍 READING DATA: df::borrow(object_id, key)
+    
+    Like asking: "What's the character's health?"
+    */
+
+    // Check if a field exists first (important!)
+    public fun has_health(character: &GameCharacter): bool {
+        df::exists_(&character.id, b"health".to_string())
+    }
+
+    // Read the health value
+    public fun get_health(character: &GameCharacter): u64 {
+        // Always check if it exists first!
+        assert!(df::exists_(&character.id, b"health".to_string()), 0);
+        *df::borrow(&character.id, b"health".to_string())
+    }
+
+    // Better: Read with a default value if it doesn't exist
+    public fun get_health_safe(character: &GameCharacter): u64 {
+        if (df::exists_(&character.id, b"health".to_string())) {
+            *df::borrow(&character.id, b"health".to_string())
         } else {
-            option::none()
+            100  // Default health
         }
     }
 
-    // Custom error codes for better debugging
-    const EFieldNotFound: u64 = 1;
-    const EInvalidKey: u64 = 2;
+    // =========================================
+    // STEP 4: UPDATING DYNAMIC FIELDS
+    // =========================================
+    /*
+    ✏️ CHANGING VALUES: df::borrow_mut(object_id, key)
+    
+    Like: "Increase the character's health by 50"
+    */
 
-    public fun get_required_field(container: &Container, key: String): u64 {
-        assert!(df::exists_(&container.id, key), EFieldNotFound);
-        *df::borrow(&container.id, key)
+    // Heal the character
+    public fun heal_character(character: &mut GameCharacter, healing: u64) {
+        if (df::exists_(&character.id, b"health".to_string())) {
+            let health_ref = df::borrow_mut(&mut character.id, b"health".to_string());
+            *health_ref = *health_ref + healing;
+        }
     }
+
+    // Take damage
+    public fun take_damage(character: &mut GameCharacter, damage: u64) {
+        if (df::exists_(&character.id, b"health".to_string())) {
+            let health_ref = df::borrow_mut(&mut character.id, b"health".to_string());
+            if (*health_ref > damage) {
+                *health_ref = *health_ref - damage;
+            } else {
+                *health_ref = 0;  // Character dies
+            }
+        }
+    }
+
+    // =========================================
+    // STEP 5: REMOVING DYNAMIC FIELDS
+    // =========================================
+    /*
+    REMOVING DATA: df::remove(object_id, key)
+    
+    Sometimes you want to remove temporary effects or reset stats
+    */
+
+    // Remove a temporary buff
+    public fun remove_strength_buff(character: &mut GameCharacter) {
+        if (df::exists_(&character.id, b"temp_strength_buff".to_string())) {
+            let _removed_buff: u64 = df::remove(&mut character.id, b"temp_strength_buff".to_string());
+            // The value is returned and dropped (discarded with _)
+        }
+    }
+
+    // =========================================
+    // STEP 6: STORING COMPLEX DATA (STRUCTS)
+    // =========================================
+    /*
+    📦 BEYOND NUMBERS: You can store custom structs too!
+    
+    Requirements: The struct needs copy + drop + store abilities
+    */
+
+    // A more complex piece of data
+    struct PlayerStats has copy, drop, store {
+        health: u64,
+        mana: u64,
+        strength: u64,
+        intelligence: u64,
+        level: u64,
+    }
+
+    // Add all stats at once using a struct
+    public fun set_all_stats(
+        character: &mut GameCharacter,
+        health: u64,
+        mana: u64,
+        strength: u64,
+        intelligence: u64,
+        level: u64
+    ) {
+        let stats = PlayerStats {
+            health,
+            mana,
+            strength,
+            intelligence,
+            level,
+        };
+        
+        df::add(&mut character.id, b"stats".to_string(), stats);
+    }
+
+    // Read the entire stats struct
+    public fun get_all_stats(character: &GameCharacter): (u64, u64, u64, u64, u64) {
+        if (df::exists_(&character.id, b"stats".to_string())) {
+            let stats = df::borrow(&character.id, b"stats".to_string());
+            (stats.health, stats.mana, stats.strength, stats.intelligence, stats.level)
+        } else {
+            (100, 50, 10, 10, 1)  // Default values
+        }
+    }
+
+    // =========================================
+    // STEP 7: STORING LISTS (VECTORS)
+    // =========================================
+    /*
+    📝 LISTS OF DATA: Perfect for skills, inventory, etc.
+    
+    Characters can learn multiple skills over time!
+    */
+
+    // Learn a new skill
+    public fun learn_skill(character: &mut GameCharacter, skill_name: String) {
+        let skills_key = b"skills".to_string();
+        
+        if (df::exists_(&character.id, skills_key)) {
+            // Add to existing skills
+            let skills = df::borrow_mut(&mut character.id, skills_key);
+            vector::push_back(skills, skill_name);
+        } else {
+            // Create new skills list
+            let new_skills = vector::empty<String>();
+            vector::push_back(&mut new_skills, skill_name);
+            df::add(&mut character.id, skills_key, new_skills);
+        }
+    }
+
+    // Check if character knows a skill
+    public fun knows_skill(character: &GameCharacter, skill_name: String): bool {
+        let skills_key = b"skills".to_string();
+        if (!df::exists_(&character.id, skills_key)) return false;
+        
+        let skills = df::borrow(&character.id, skills_key);
+        vector::contains(skills, &skill_name)
+    }
+
+    // Get all skills
+    public fun get_skills(character: &GameCharacter): vector<String> {
+        let skills_key = b"skills".to_string();
+        if (df::exists_(&character.id, skills_key)) {
+            *df::borrow(&character.id, skills_key)
+        } else {
+            vector::empty<String>()
+        }
+    }
+
+    // =========================================
+    // STEP 8: DYNAMIC OBJECT FIELDS (ADVANCED)
+    // =========================================
+    /*
+    🗡️ STORING OBJECTS: For things that are objects themselves
+    
+    Weapons and armor are objects that can exist independently
+    Use dof:: instead of df:: for objects with key+store abilities
+    */
+
+    struct Weapon has key, store {
+        id: UID,
+        name: String,
+        damage: u64,
+    }
+
+    // Create a weapon
+    public fun create_weapon(name: String, damage: u64, ctx: &mut TxContext) {
+        let weapon = Weapon {
+            id: object::new(ctx),
+            name,
+            damage,
+        };
+        transfer::transfer(weapon, tx_context::sender(ctx));
+    }
+
+    // Equip a weapon (attach it to character as a dynamic object field)
+    public fun equip_weapon(character: &mut GameCharacter, weapon: Weapon) {
+        dof::add(&mut character.id, b"weapon".to_string(), weapon);
+        //  ^use dof for objects     ^key            ^object value
+    }
+
+    // Check weapon stats
+    public fun get_weapon_damage(character: &GameCharacter): u64 {
+        if (dof::exists_(&character.id, b"weapon".to_string())) {
+            let weapon = dof::borrow(&character.id, b"weapon".to_string());
+            weapon.damage
+        } else {
+            5  // Bare hands damage
+        }
+    }
+
+    // Unequip weapon (returns the weapon object)
+    public fun unequip_weapon(character: &mut GameCharacter): Weapon {
+        assert!(dof::exists_(&character.id, b"weapon".to_string()), 1);
+        dof::remove(&mut character.id, b"weapon".to_string())
+    }
+
+    // =========================================
+    // STEP 9: PRACTICAL PATTERNS
+    // =========================================
+    /*
+    🎯 REAL WORLD USAGE: Common patterns you'll use
+    */
+
+    // Pattern 1: Batch operations (do multiple things at once)
+    public fun initialize_new_character(
+        character: &mut GameCharacter,
+        starting_health: u64,
+        starting_mana: u64,
+        starting_class: String
+    ) {
+        // Set multiple fields efficiently
+        df::add(&mut character.id, b"health".to_string(), starting_health);
+        df::add(&mut character.id, b"mana".to_string(), starting_mana);
+        df::add(&mut character.id, b"class".to_string(), starting_class);
+        
+        // Give starting skill
+        let starting_skills = vector[b"Basic Attack".to_string()];
+        df::add(&mut character.id, b"skills".to_string(), starting_skills);
+    }
+
+    // Pattern 2: Calculated values (combine multiple fields)
+    public fun get_total_power(character: &GameCharacter): u64 {
+        let base_strength = if (df::exists_(&character.id, b"strength".to_string())) {
+            *df::borrow(&character.id, b"strength".to_string())
+        } else { 10 };
+        
+        let weapon_damage = get_weapon_damage(character);
+        
+        base_strength + weapon_damage
+    }
+
+    // Pattern 3: Conditional updates (level up system)
+    public fun try_level_up(character: &mut GameCharacter): bool {
+        // Check if character has enough experience
+        if (df::exists_(&character.id, b"experience".to_string()) && 
+            df::exists_(&character.id, b"level".to_string())) {
+            
+            let exp = *df::borrow(&character.id, b"experience".to_string());
+            let level = *df::borrow(&character.id, b"level".to_string());
+            
+            if (exp >= level * 100) { // Need 100 exp per level
+                // Level up!
+                let level_ref = df::borrow_mut(&mut character.id, b"level".to_string());
+                *level_ref = *level_ref + 1;
+                
+                // Bonus health on level up
+                if (df::exists_(&character.id, b"health".to_string())) {
+                    let health_ref = df::borrow_mut(&mut character.id, b"health".to_string());
+                    *health_ref = *health_ref + 20;
+                }
+                
+                return true
+            }
+        };
+        false
+    }
+
+    // =========================================
+    // STEP 10: ERROR HANDLING & BEST PRACTICES
+    // =========================================
+    /*
+    🛡️ BEING SAFE: Always handle missing data gracefully
+    */
+
+    // Custom error codes
+    const EFieldNotFound: u64 = 1;
+    const EInsufficientHealth: u64 = 2;
+    const ENoWeaponEquipped: u64 = 3;
+
+    // Safe operations with proper error handling
+    public fun cast_spell(character: &mut GameCharacter, mana_cost: u64): bool {
+        // Check if character has mana field
+        if (!df::exists_(&character.id, b"mana".to_string())) {
+            return false // Can't cast without mana system
+        };
+        
+        let mana_ref = df::borrow_mut(&mut character.id, b"mana".to_string());
+        if (*mana_ref >= mana_cost) {
+            *mana_ref = *mana_ref - mana_cost;
+            true // Spell cast successfully
+        } else {
+            false // Not enough mana
+        }
+    }
+
+    // =========================================
+    // KEY TAKEAWAYS FOR BEGINNERS
+    // =========================================
+    /*
+    🎓 REMEMBER THESE CORE CONCEPTS:
+
+    1. ADDING DATA: df::add(object_id, key, value)
+       - Like character["health"] = 100
+
+    2. READING DATA: df::borrow(object_id, key)  
+       - Always check df::exists_() first!
+
+    3. UPDATING DATA: df::borrow_mut(object_id, key)
+       - Get a mutable reference and change it
+
+    4. REMOVING DATA: df::remove(object_id, key)
+       - Returns the value that was removed
+
+    5. FOR OBJECTS: Use dof:: instead of df::
+       - dof::add(), dof::borrow(), etc.
+
+    🔑 BEST PRACTICES:
+    Always check if fields exist before accessing
+    Provide default values for missing data
+    Use consistent key naming ("health", not "hp" sometimes)
+    Group related operations together
+    Handle errors gracefully
+
+    🚀 START SIMPLE:
+    - Begin with single values (numbers, strings)
+    - Move to structs for grouped data
+    - Add vectors for lists
+    - Finally use object fields for complex items
+
+    Dynamic fields are perfect for games because players do
+    unpredictable things - they learn different skills, find
+    different items, and progress in unique ways!
+    */
 }
