@@ -82,6 +82,7 @@ module game::character_system {
     public fun get_health(character: &GameCharacter): u64 {
         // Always check if it exists first!
         assert!(df::exists_(&character.id, b"health".to_string()), 0);
+        
         *df::borrow(&character.id, b"health".to_string())
     }
 
