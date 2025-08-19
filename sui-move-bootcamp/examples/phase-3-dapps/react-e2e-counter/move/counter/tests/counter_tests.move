@@ -48,7 +48,7 @@ module counter::counter_test {
             return_shared(counter);
         };
 
-        // Owner sets the value
+        // Owner resets the value
         {
             scenario.next_tx(owner);
             let mut counter: Counter = scenario.take_shared();
@@ -60,6 +60,21 @@ module counter::counter_test {
 
             return_shared(counter);
         };
+
+        // User1 increments the counter again
+        {
+            scenario.next_tx(user1);
+            let mut counter: Counter = scenario.take_shared();
+
+            assert!(get_owner(&counter) == owner);
+            assert!(get_value(&counter) == 100);
+
+            counter.increment();
+
+            assert!(get_value(&counter) == 101);
+
+            return_shared(counter);
+        };     
 
         scenario.end();
     }
